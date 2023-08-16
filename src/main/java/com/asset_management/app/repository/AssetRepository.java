@@ -50,12 +50,13 @@ public class AssetRepository {
 	
 	public String deleteById(Long id) {
 		AssetEntity asset = entityManager.find(AssetEntity.class, id);
-	        if (asset.getStatus()=="Unassigned") {
-	           entityManager.remove(asset);
-	           return "Asset Deleted Successfully";
-	        }else {
-	        	return "Can't delete assigned asset.";
-	        }
+		String status = asset.getStatus();
+	    if ("Assigned".equals(status)) {
+	       	return "Can't delete assigned asset.";
+	    }else {
+	    	entityManager.remove(asset);
+	    	return "Asset Deleted Successfully";
+	    }
 	}
 	public AssetEntity assignAsset(AssetEntity asset) {
 		AssetEntity existingAsset = entityManager.find(AssetEntity.class, asset.getAssetId());

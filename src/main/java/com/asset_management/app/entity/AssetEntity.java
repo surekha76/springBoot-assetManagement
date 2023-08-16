@@ -29,7 +29,7 @@ public class AssetEntity {
     private String purchasePrice;
 	@Column(name="purchaseType")
     private String purchaseType;
-	@Column(name = "status",nullable = false, columnDefinition = "VARCHAR(20) DEFAULT 'Unassigned'")
+	@Column(name = "status")
     private String status="Unassigned";
 	@ManyToOne() // Many assets can belong to one vendor
     @JoinColumn(name = "vendorId")

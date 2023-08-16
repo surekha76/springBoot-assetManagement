@@ -152,9 +152,8 @@
 					console.log(data);
 					var tbody = $("#vendorTableBody");
 					tbody.empty();
-					data.forEach(function(vendor) {
-						console.log(vendor);
-						if(vendor==""){
+					if(data.length!=0){
+						data.forEach(function(vendor) {
 							var row = "<tr data_id=" + vendor.vendorId + ">" +
 					          "<td style='display:none;'>" + vendor.vendorId + "</td>" +
 					          "<td>" + index + "</td>" +
@@ -168,11 +167,11 @@
 					          "</tr>";
 							tbody.append(row);
 							index++;	
-						}else{
-							var row = "<tr> <td colspan='8' style='text-align:center'>No Data Available</td> </tr>";
-							tbody.append(row);
-						}
-					}); 
+						}); 	
+					}else{
+						var row = "<tr> <td colspan='8' style='text-align:center'>No Data Available</td> </tr>";
+						tbody.append(row);
+					}
 				},
 				error : function(error) {
 					console.log(error);

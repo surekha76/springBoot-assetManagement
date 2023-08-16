@@ -161,12 +161,12 @@
 				url : "/getAllEmployee",
 				type : "GET",
 				success : function(data) {
-					console.log(data);
+					console.log("employee data",data.length);
 					var tbody = $("#employeeTableBody");
 					tbody.empty();
-					data.forEach(function(employee) {
-						console.log(employee);
-						if(employee==""){
+					if(data.length!=0){
+						data.forEach(function(employee) {
+							console.log("employee length",employee.length);
 							var row = "<tr data_id=" + employee.id + ">" +
 					          "<td style='display:none;'>" + employee.id + "</td>" +
 					          "<td>" + index + "</td>" +
@@ -180,12 +180,13 @@
 					          "<td>" + "<button onclick='deleteEmployee(" + employee.id + ")'>Delete</button>" + "</td>" +
 					          "</tr>";
 							tbody.append(row);
-							index++;	
-						}else{
-							var row = "<tr> <td colspan='9' style='text-align:center'>No Data Available</td> </tr>";
-							tbody.append(row);
-						}
-					});
+							index++;
+						});	
+					}else{
+						console.log("no data");
+						var row = "<tr> <td colspan='9' style='text-align:center'>No Data Available</td> </tr>";
+						tbody.append(row);	
+					}
 				},
 				error : function(error) {
 					console.log(error);

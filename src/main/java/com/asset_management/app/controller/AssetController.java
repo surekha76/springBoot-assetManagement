@@ -3,6 +3,7 @@ package com.asset_management.app.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +41,12 @@ public class AssetController {
 				String response = "Vendor details was null";
 				return response;
 			}
+		}catch(DataIntegrityViolationException e) {
+			if (e.getMessage() != null && e.getMessage().contains("duplicate key value")) {
+		        return "Asset already exist";
+		    } else {
+		        return e.getMessage();
+		    }
 		} catch (Exception e) {
 			return e.getMessage();
 		}

@@ -138,27 +138,6 @@
 				}
 			});
 		}
-/* 		function fetchAssetDetails(){
-			$.ajax({
-				url : "/getAllAsset",
-				type : "GET",
-				success : function(data) {
-					console.log(data);
-					var dropdown = $("#assetId");
-				      dropdown.empty();
-				      dropdown.append("<option value=''>Select a Asset</option>");
-				      data.forEach(function (asset) {
-				    	if(asset.status=="Unassigned"){
-				    		dropdown.append("<option value='" + asset.assetId + "'>" + asset.assetName + "</option>");	
-				    	}
-				      });
-				},
-				error : function(error) {
-					console.log(error);
-					alert("Error in fetching asset details");
-				}
-			});
-		} */
 		function fetchAssignedAsset() {
 			var index = 1;
 			$.ajax({
@@ -167,35 +146,40 @@
 				success : function(data) {
 					var tbody = $("#assignAssetTableBody");
 					tbody.empty();
-					data.forEach(function(asset) {
-						console.log(asset);
-						if(asset.status=="Assigned"){
-							var row = "<tr data_id=" + asset.assetId + ">"
-							+ "<td style='display:none;'>" + asset.assetId + "</td>"
-							+ "<td>" + index + "</td>"
-							+ "<td>" + asset.assetName + "</td>"
-							+ "<td style='display:none;'>" + asset.employee.id + "</td>"
-							+ "<td>" + asset.employee.firstName + "</td>"
-							+ "<td>" + asset.assignedBy + "</td>"
-							+ "<td>" + asset.assignedDate + "</td>"
-							+ "<td>" + "<button onclick='updateAssignAsset(" + asset.assetId + ")'>View</button>" + "</td>"
-							+ "<td>" + "<button onclick='deleteAssignAsset(" + asset.assetId + ")'>Delete</button>" + "</td>"
-							+ "</tr>";
-							tbody.append(row);
-							index++;	
-						}else{
-							var row = "<tr> <td colspan='7' style='text-align:center'>No Data Available</td> </tr>";
-							tbody.append(row);
-						}
-						var dropdown = $("#assetId");
-					      dropdown.empty();
-					      dropdown.append("<option value=''>Select a Asset</option>");
-					      data.forEach(function (asset) {
-					    	if(asset.status=="Unassigned"){
-					    		dropdown.append("<option value='" + asset.assetId + "'>" + asset.assetName + "</option>");	
-					    	}
-					      });
-					});
+					if(data.length!=0){
+						data.forEach(function(asset) {
+							console.log(asset);
+							if(asset.status=="Assigned"){
+								var row = "<tr data_id=" + asset.assetId + ">"
+								+ "<td style='display:none;'>" + asset.assetId + "</td>"
+								+ "<td>" + index + "</td>"
+								+ "<td>" + asset.assetName + "</td>"
+								+ "<td style='display:none;'>" + asset.employee.id + "</td>"
+								+ "<td>" + asset.employee.firstName + "</td>"
+								+ "<td>" + asset.assignedBy + "</td>"
+								+ "<td>" + asset.assignedDate + "</td>"
+								+ "<td>" + "<button onclick='updateAssignAsset(" + asset.assetId + ")'>View</button>" + "</td>"
+								+ "<td>" + "<button onclick='deleteAssignAsset(" + asset.assetId + ")'>Delete</button>" + "</td>"
+								+ "</tr>";
+								tbody.append(row);
+								index++;	
+							}else{
+								var row = "<tr> <td colspan='7' style='text-align:center'>No Data Available</td> </tr>";
+								tbody.append(row);
+							}
+							var dropdown = $("#assetId");
+						      dropdown.empty();
+						      dropdown.append("<option value=''>Select a Asset</option>");
+						      data.forEach(function (asset) {
+						    	if(asset.status=="Unassigned"){
+						    		dropdown.append("<option value='" + asset.assetId + "'>" + asset.assetName + "</option>");	
+						    	}
+						      });
+						});
+					}else{
+						var row = "<tr> <td colspan='7' style='text-align:center'>No Data Available</td> </tr>";
+						tbody.append(row);
+					}
 				},
 				error : function(error) {
 					console.log(error);
@@ -221,12 +205,12 @@
 					data : JSON.stringify(assignAsset),
 					success : function(response) {
 						console.log(response);
-						$("#addAssignAssetModal").modal("hide");
+						$("#assignAssetModal").modal("hide");
 						fetchAssignedAsset();
 						alert(response);
 					},
 					error : function(error) {
-						$("#addAssignAssetModal").modal("hide");
+						$("#assignAssetModal").modal("hide");
 						alert(error);
 						console.log(error);
 					}

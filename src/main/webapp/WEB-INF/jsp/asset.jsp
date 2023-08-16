@@ -242,34 +242,33 @@
 					console.log(data);
 					var tbody = $("#assetTableBody");
 					tbody.empty();
-					data.forEach(function(asset) {
-						console.log(asset);
-						if(asset==""){
+					if(data.length!=0){
+						data.forEach(function(asset) {
 							var row = "<tr data_id=" + asset.assetId + ">"
-							+ "<td style='display:none;'>" + asset.assetId + "</td>"
-							+ "<td>" + index + "</td>"
-							+ "<td>" + asset.assetName + "</td>"
-							+ "<td>" + asset.category + "</td>"
-							+ "<td>" + asset.assetType + "</td>"
-							+ "<td>" + asset.modelNo + "</td>"
-							+ "<td>" + asset.serialNo + "</td>"
-							+ "<td>" + asset.purchasePrice + "</td>"
-							+ "<td>" + asset.purchaseDate + "</td>"
-							+ "<td>" + asset.warrantyDate + "</td>"
-							+ "<td>" + asset.purchaseType + "</td>"
-							+ "<td style='display:none;'>" + asset.vendor.vendorId + "</td>"
-							+ "<td>" + asset.vendor.vendorName + "</td>"
-							+ "<td>" + asset.status + "</td>"
-							+ "<td>" + "<button onclick='updateAsset(" + asset.assetId + ")'>View</button>" + "</td>"
-							+ "<td>" + "<button onclick='deleteAsset(" + asset.assetId + ")'>Delete</button>" + "</td>"
-							+ "</tr>";
+								+ "<td style='display:none;'>" + asset.assetId + "</td>"
+								+ "<td>" + index + "</td>"
+								+ "<td>" + asset.assetName + "</td>"
+								+ "<td>" + asset.category + "</td>"
+								+ "<td>" + asset.assetType + "</td>"
+								+ "<td>" + asset.modelNo + "</td>"
+								+ "<td>" + asset.serialNo + "</td>"
+								+ "<td>" + asset.purchasePrice + "</td>"
+								+ "<td>" + asset.purchaseDate + "</td>"
+								+ "<td>" + asset.warrantyDate + "</td>"
+								+ "<td>" + asset.purchaseType + "</td>"
+								+ "<td style='display:none;'>" + asset.vendor.vendorId + "</td>"
+								+ "<td>" + asset.vendor.vendorName + "</td>"
+								+ "<td>" + asset.status + "</td>"
+								+ "<td>" + "<button onclick='updateAsset(" + asset.assetId + ")'>View</button>" + "</td>"
+								+ "<td>" + "<button onclick='deleteAsset(" + asset.assetId + ")'>Delete</button>" + "</td>"
+								+ "</tr>";
 							tbody.append(row);
 							index++;
-						}else{
-							var row = "<tr> <td colspan='14' style='text-align:center'>No Data Available</td> </tr>";
-							tbody.append(row);
-						}
-					});
+						});	
+					}else{
+						var row = "<tr> <td colspan='14' style='text-align:center'>No Data Available</td> </tr>";
+						tbody.append(row);
+					}
 				},
 				error : function(error) {
 					console.log(error);
