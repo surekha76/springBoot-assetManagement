@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.asset_management.app.entity.VendorEntity;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 @Repository
 @Transactional
@@ -26,6 +27,17 @@ public class VendorRepository {
 
 	public VendorEntity findById(Long id) {
 		return entityManager.find(VendorEntity.class, id);
+	}
+	
+	public VendorEntity findByName(String vendorName) {
+		String hql = "FROM VendorEntity v WHERE v.vendorName = :vendorName";
+		TypedQuery<VendorEntity> query = entityManager.createQuery(hql, VendorEntity.class);
+		query.setParameter("vendorName", vendorName);
+	    try {
+	    	return query.getSingleResult();
+	    } catch (Exception e) {
+	    	return null;
+	    }
 	}
 
 	public VendorEntity updateVendor(VendorEntity vendor) {

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.asset_management.app.entity.AssetEntity;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 @Repository
 @Transactional
@@ -26,6 +27,17 @@ public class AssetRepository {
 
 	public AssetEntity findById(Long id) {
 		 return entityManager.find(AssetEntity.class, id);
+	}
+	
+	public AssetEntity findByName(String assetName) {
+		String hql = "FROM AssetEntity a WHERE a.assetName = :assetName";
+		TypedQuery<AssetEntity> query = entityManager.createQuery(hql, AssetEntity.class);
+		query.setParameter("assetName", assetName);
+	    try {
+	    	return query.getSingleResult();
+	    } catch (Exception e) {
+	    	return null;
+	    }
 	}
 	
 	public AssetEntity updateAsset(AssetEntity asset) {
@@ -60,7 +72,7 @@ public class AssetRepository {
 	}
 	public AssetEntity assignAsset(AssetEntity asset) {
 		AssetEntity existingAsset = entityManager.find(AssetEntity.class, asset.getAssetId());
-        if (existingAsset != null) {
+        if (existingAsset != null && asset.getEmployee()!= null) {
         	existingAsset.setEmployee(asset.getEmployee());
         	existingAsset.setAssignedDate(asset.getAssignedDate());
         	existingAsset.setAssignedBy(asset.getAssignedBy());

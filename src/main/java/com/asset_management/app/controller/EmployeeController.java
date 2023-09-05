@@ -68,7 +68,13 @@ public class EmployeeController {
 	    		employeeService.deleteEmployee(id);
 	    		String response = "Employee Deleted Successfuly";
 	            return response;
-	    	}catch(Exception e) {
+	    	}catch(DataIntegrityViolationException e) {
+				if (e.getMessage() != null && e.getMessage().contains("violates foreign key constraint")) {
+			        return "Can't delete. Employee Mapped with Asset";
+			    } else {
+			        return e.getMessage();
+			    }
+			}catch(Exception e) {
 	    		return e.getMessage();
 	    	}
 	    }

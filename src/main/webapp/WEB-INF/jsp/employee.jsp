@@ -6,6 +6,11 @@
 <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
 <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<style type="text/css">
+.modal-body form input[type="text"] {
+    text-transform: lowercase;
+}
+</style>
 </head>
 <body>
 	<div class="container">

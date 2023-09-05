@@ -9,7 +9,11 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-
+<style>
+.modal-body form input[type="text"] {
+    text-transform: lowercase;
+}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -21,8 +25,8 @@
 					<th>No</th>
 					<th>Asset Name</th>
 					<th>Assigned To</th>
-					<th>Assigning Date</th>
-					<th>Assigned By</th>
+					<th>Assigning By</th>
+					<th>Assigned Date</th>
 					<th>View</th>
 					<th>Delete</th>
 				</tr>
@@ -163,10 +167,7 @@
 								+ "</tr>";
 								tbody.append(row);
 								index++;	
-							}else{
-								var row = "<tr> <td colspan='7' style='text-align:center'>No Data Available</td> </tr>";
-								tbody.append(row);
-							}
+							} 
 							var dropdown = $("#assetId");
 						      dropdown.empty();
 						      dropdown.append("<option value=''>Select a Asset</option>");
@@ -176,6 +177,11 @@
 						    	}
 						      });
 						});
+						if(tbody.children().length==0){
+							console.log("no data"+tbody);
+							var row = "<tr> <td colspan='7' style='text-align:center'>No Data Available</td> </tr>";
+							tbody.append(row);
+						}
 					}else{
 						var row = "<tr> <td colspan='7' style='text-align:center'>No Data Available</td> </tr>";
 						tbody.append(row);
